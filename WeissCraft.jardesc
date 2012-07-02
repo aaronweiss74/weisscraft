@@ -12,7 +12,6 @@
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
         <file path="/WeissCraft/plugin.yml"/>
-        <folder path="/WeissCraft/dist"/>
         <javaElement handleIdentifier="=WeissCraft/src"/>
     </selectedElements>
 </jardesc>
