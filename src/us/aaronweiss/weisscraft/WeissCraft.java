@@ -19,7 +19,7 @@ public class WeissCraft extends JavaPlugin {
 			this.logger.info("[" + this.getDescription().getName() + "] World Mod Prevention enabled.");
 		}
 		if (ModConstants.MUTANT_MOD) {
-			MutantModListener mm = new MutantModListener();
+			MutantModListener mm = new MutantModListener(this);
 			this.getServer().addRecipe(mm.getMutantRecipe());
 			this.getServer().addRecipe(mm.getBlindnessRecipe());
 			this.getServer().getPluginManager().registerEvents(mm, this);

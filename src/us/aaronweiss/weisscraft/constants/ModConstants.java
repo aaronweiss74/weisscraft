@@ -3,7 +3,7 @@ package us.aaronweiss.weisscraft.constants;
 /**
  * Configuration constants to turn some stuff on/off.
  * @author Aaron Weiss
- * @version 1.0
+ * @version 1.1
  */
 public class ModConstants {
 	public static final boolean WORLD_MOD_PREVENTION = false;
