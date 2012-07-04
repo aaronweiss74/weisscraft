@@ -8,4 +8,5 @@ package us.aaronweiss.weisscraft.constants;
 public class ModConstants {
 	public static final boolean WORLD_MOD_PREVENTION = false;
 	public static final boolean MUTANT_MOD = true;
+	public static final boolean SMART_COMPASS = true;
 }

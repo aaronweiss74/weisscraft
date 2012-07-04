@@ -1,6 +1,7 @@
 package us.aaronweiss.weisscraft;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.FurnaceSmeltEvent;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 /**
  * WeissCraft Listener to cause mutations when smelting diamonds.
  * @author Aaron Weiss
- * @version 1.0
+ * @version 1.3
  */
 public class MutantModListener implements Listener {
 	private final ArrayList<PotionEffect> mutations = new ArrayList<PotionEffect>();
@@ -93,6 +95,16 @@ public class MutantModListener implements Listener {
 		}
 		if (le.hasPotionEffect(PotionEffectType.JUMP)) {
 			if (e.getCause().equals(DamageCause.FALL)) {
+				e.setCancelled(true);
+			}
+		}
+	}
+	
+	@EventHandler
+	public void regenerationHungerFix(FoodLevelChangeEvent e) {
+		Collection<PotionEffect> effects = e.getEntity().getActivePotionEffects();
+		for (PotionEffect pe : effects) {
+			if (pe.getType().equals(PotionEffectType.REGENERATION) && pe.getAmplifier() >= 4) {
 				e.setCancelled(true);
 			}
 		}

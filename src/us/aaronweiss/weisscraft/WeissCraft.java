@@ -24,13 +24,23 @@ public class WeissCraft extends JavaPlugin {
 			this.getServer().getPluginManager().registerEvents(mm, this);
 			this.logger.info("[" + this.getDescription().getName() + "] Mutant Mod enabled.");
 		}
-		this.logger.info("[" + this.getDescription().getName() + "] WeissCraft loaded.");
+		if (ModConstants.SMART_COMPASS) {
+			this.getServer().getPluginManager().registerEvents(new SmartCompassListener(), this);
+			this.logger.info("[" + this.getDescription().getName() + "] Smart Compass enabled.");
+		}
+		this.logger.info("[" + this.getDescription().getName() + "] WeissCraft (" + this.getDescription().getVersion() + ") loaded.");
 	}
 	
 	@Override
 	public void onDisable(){
 		if (ModConstants.WORLD_MOD_PREVENTION) {
 			this.logger.info("[" + this.getDescription().getName() + "] World Mod Prevention disabled.");
+		}
+		if (ModConstants.MUTANT_MOD) {
+			this.logger.info("[" + this.getDescription().getName() + "] Mutant Mod disabled.");
+		}
+		if (ModConstants.SMART_COMPASS) {
+			this.logger.info("[" + this.getDescription().getName() + "] Smart Compass disabled.");
 		}
 	}
 }
