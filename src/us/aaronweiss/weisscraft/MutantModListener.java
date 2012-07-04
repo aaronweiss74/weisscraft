@@ -7,6 +7,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.FurnaceSmeltEvent;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
@@ -61,6 +63,21 @@ public class MutantModListener implements Listener {
 			}
 			for (int i = 0; i < 50; i++) {
 				Collections.shuffle(mutations);
+			}
+		}
+	}
+	
+	@EventHandler
+	public void fixFallDamage(EntityDamageEvent e) {
+		LivingEntity le;
+		try {
+			le = (LivingEntity) e.getEntity();
+		} catch (ClassCastException ex) {
+			return;
+		}
+		if (le.hasPotionEffect(PotionEffectType.JUMP)) {
+			if (e.getCause().equals(DamageCause.FALL)) {
+				e.setCancelled(true);
 			}
 		}
 	}
