@@ -25,7 +25,9 @@ import org.bukkit.potion.PotionEffectType;
 public class MutantModListener implements Listener {
 	private final ArrayList<PotionEffect> mutations = new ArrayList<PotionEffect>();
 	private Material source;
+	private Material blindnessSource;
 	private ItemStack yield;
+	private ItemStack blindnessYield;
 	private FurnaceRecipe blindnessRecipe;
 	private FurnaceRecipe mutantRecipe;
 	
@@ -33,9 +35,9 @@ public class MutantModListener implements Listener {
 		yield = new ItemStack(Material.COAL);
 		source = Material.DIAMOND;
 		mutantRecipe = new FurnaceRecipe(yield, source);
-		yield = new ItemStack(Material.GHAST_TEAR);
-		source = Material.GHAST_TEAR;
-		blindnessRecipe = new FurnaceRecipe(yield, source);
+		blindnessYield = new ItemStack(Material.GHAST_TEAR);
+		blindnessSource = Material.GHAST_TEAR;
+		blindnessRecipe = new FurnaceRecipe(blindnessYield, blindnessSource);
 		int duration = 72000;
 		int negativeDuration = 600;
 		int amplifier = 4;
