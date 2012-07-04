@@ -24,12 +24,16 @@ public class MutantModListener implements Listener {
 	private final ArrayList<PotionEffect> mutations = new ArrayList<PotionEffect>();
 	private Material source;
 	private ItemStack yield;
+	private FurnaceRecipe blindnessRecipe;
 	private FurnaceRecipe mutantRecipe;
 	
 	public MutantModListener() {
 		yield = new ItemStack(Material.COAL);
 		source = Material.DIAMOND;
 		mutantRecipe = new FurnaceRecipe(yield, source);
+		yield = new ItemStack(Material.GHAST_TEAR);
+		source = Material.GHAST_TEAR;
+		blindnessRecipe = new FurnaceRecipe(yield, source);
 		int duration = 72000;
 		int negativeDuration = 600;
 		int amplifier = 4;
@@ -45,6 +49,10 @@ public class MutantModListener implements Listener {
 		for (int i = 0; i < 50; i++) {
 			Collections.shuffle(mutations);
 		}
+	}
+	
+	public FurnaceRecipe getBlindnessRecipe() {
+		return blindnessRecipe;
 	}
 	
 	public FurnaceRecipe getMutantRecipe() {
@@ -63,6 +71,14 @@ public class MutantModListener implements Listener {
 			}
 			for (int i = 0; i < 50; i++) {
 				Collections.shuffle(mutations);
+			}
+		} else if (e.getSource().getType().equals(Material.GHAST_TEAR)) {
+			Location loc = e.getBlock().getLocation();
+			for (LivingEntity le : e.getBlock().getWorld().getLivingEntities()) {
+				Location lec = le.getLocation();
+				if (lec.distance(loc) < 8 && Math.abs(lec.subtract(loc).getY()) < 2) {
+					le.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 6000, 4));
+				}
 			}
 		}
 	}
