@@ -12,7 +12,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
  * @author Aaron Weiss
  * @version 1.0
  */
-public class BlockEventListener implements Listener {
+public class WorldModPreventionListener implements Listener {
 	@EventHandler
 	public void stopBlockPlace(BlockPlaceEvent e) {
 		if (e.getPlayer() != null && !e.getPlayer().isOp()) {

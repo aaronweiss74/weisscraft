@@ -1,0 +1,11 @@
+package us.aaronweiss.weisscraft.constants;
+
+/**
+ * Configuration constants to turn some stuff on/off.
+ * @author Aaron Weiss
+ * @version 1.0
+ */
+public class ModConstants {
+	public static final boolean WORLD_MOD_PREVENTION = false;
+	public static final boolean MUTANT_MOD = true;
+}

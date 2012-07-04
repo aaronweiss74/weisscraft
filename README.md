@@ -7,7 +7,7 @@ WeissCraft is a collection of Minecraft Bukkit mods developed by Aaron Weiss to 
 I got annoyed at some simple mods not existing that I needed. It's as simple as that. I just made them.
 
 ## What's in WeissCraft? ##
-Currently, there's a single mod that makes it so that blocks can only be modified by operators, but I may add more in the future.
+Currently, there's a single mod that makes it so that blocks can only be modified by operators, but I may add more in the future. There's also another mod that allows you to smelt a diamond, and receive mutations as a result.
 
 ## Is it configurable? ##
 No.

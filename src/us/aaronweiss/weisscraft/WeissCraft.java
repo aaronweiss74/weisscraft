@@ -2,6 +2,7 @@ package us.aaronweiss.weisscraft;
 
 import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.aaronweiss.weisscraft.constants.ModConstants;
 
 /**
  * The main Bukkit plugin for WeissCraft.
@@ -13,12 +14,23 @@ public class WeissCraft extends JavaPlugin {
  
 	@Override
 	public void onEnable(){
-		this.getServer().getPluginManager().registerEvents(new BlockEventListener(), this);
-		this.logger.info("[" + this.getDescription().getFullName() + "] Block Control enabled.");
+		if (ModConstants.WORLD_MOD_PREVENTION) {
+			this.getServer().getPluginManager().registerEvents(new WorldModPreventionListener(), this);
+			this.logger.info("[" + this.getDescription().getFullName() + "] World Mod Prevention enabled.");
+		}
+		if (ModConstants.MUTANT_MOD) {
+			MutantModListener mm = new MutantModListener();
+			this.getServer().addRecipe(mm.getMutantRecipe());
+			this.getServer().getPluginManager().registerEvents(mm, this);
+			this.logger.info("[" + this.getDescription().getFullName() + "] Mutant Mod enabled.");
+		}
+		this.logger.info("[" + this.getDescription().getFullName() + "] WeissCraft loaded.");
 	}
 	
 	@Override
 	public void onDisable(){
-		this.logger.info("[" + this.getDescription().getFullName() + "] Block Control disabled.");
+		if (ModConstants.WORLD_MOD_PREVENTION) {
+			this.logger.info("[" + this.getDescription().getFullName() + "] World Mod Prevention disabled.");
+		}
 	}
 }
