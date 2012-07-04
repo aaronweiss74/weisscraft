@@ -18,11 +18,12 @@ import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 /**
  * WeissCraft Listener to cause mutations when smelting diamonds.
  * @author Aaron Weiss
- * @version 1.5
+ * @version 1.6
  */
 public class MutantModListener implements Listener {
 	private final ArrayList<PotionEffect> mutations = new ArrayList<PotionEffect>();
@@ -52,7 +53,7 @@ public class MutantModListener implements Listener {
 		mutations.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, duration, amplifier));
 		mutations.add(new PotionEffect(PotionEffectType.JUMP, duration, amplifier));
 		mutations.add(new PotionEffect(PotionEffectType.SPEED, duration, amplifier));
-		mutations.add(new PotionEffect(PotionEffectType.SLOW, duration, amplifier));
+		mutations.add(new PotionEffect(PotionEffectType.SLOW, duration, amplifier - 1));
 		for (int i = 0; i < 50; i++) {
 			Collections.shuffle(mutations);
 		}
@@ -128,16 +129,21 @@ public class MutantModListener implements Listener {
 	@EventHandler
 	public void teleportationMutation(PlayerInteractEvent e) {
 		Collection<PotionEffect> effects = e.getPlayer().getActivePotionEffects();
+		if (!e.getPlayer().getItemInHand().equals(Material.AIR)) {
+			return;
+		}
 		for (PotionEffect pe : effects) {
-			if (pe.getType().equals(PotionEffectType.SLOW) && pe.getAmplifier() >= 4) {
-				Location adjust = new Location(e.getPlayer().getWorld(), 0, 2, 0);
+			if (pe.getType().equals(PotionEffectType.SLOW) && pe.getAmplifier() >= 3) {
+				Vector vec = e.getPlayer().getVelocity();
 				switch (e.getAction()) {
 					default:
 						break;
 					case RIGHT_CLICK_BLOCK:
-						e.getPlayer().teleport(e.getClickedBlock().getLocation().add(adjust), TeleportCause.PLUGIN);
+						e.getPlayer().teleport(e.getClickedBlock().getLocation(), TeleportCause.PLUGIN);
+						e.getPlayer().setVelocity(vec);
 					case RIGHT_CLICK_AIR:
-						e.getPlayer().teleport(e.getPlayer().getEyeLocation().add(adjust), TeleportCause.PLUGIN);
+						e.getPlayer().teleport(e.getPlayer().getTargetBlock(null, 200).getLocation(), TeleportCause.PLUGIN);
+						e.getPlayer().setVelocity(vec);
 				}
 			}
 		}
