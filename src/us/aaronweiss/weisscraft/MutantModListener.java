@@ -13,22 +13,19 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.FurnaceSmeltEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 /**
  * WeissCraft Listener to cause mutations when smelting diamonds.
  * @author Aaron Weiss
- * @version 1.4
+ * @version 1.5
  */
 public class MutantModListener implements Listener {
 	private final ArrayList<PotionEffect> mutations = new ArrayList<PotionEffect>();
-	private JavaPlugin plugin;
 	private Material source;
 	private Material blindnessSource;
 	private ItemStack yield;
@@ -36,8 +33,7 @@ public class MutantModListener implements Listener {
 	private FurnaceRecipe blindnessRecipe;
 	private FurnaceRecipe mutantRecipe;
 	
-	public MutantModListener(JavaPlugin plugin) {
-		this.plugin = plugin;
+	public MutantModListener() {
 		yield = new ItemStack(Material.COAL);
 		source = Material.DIAMOND;
 		mutantRecipe = new FurnaceRecipe(yield, source);
@@ -133,19 +129,15 @@ public class MutantModListener implements Listener {
 	public void teleportationMutation(PlayerInteractEvent e) {
 		Collection<PotionEffect> effects = e.getPlayer().getActivePotionEffects();
 		for (PotionEffect pe : effects) {
-			if (e.getPlayer().getItemInHand().getType().equals(Material.AIR) && pe.getType().equals(PotionEffectType.SLOW) && pe.getAmplifier() >= 4) {
+			if (pe.getType().equals(PotionEffectType.SLOW) && pe.getAmplifier() >= 4) {
 				Location adjust = new Location(e.getPlayer().getWorld(), 0, 2, 0);
-				PlayerTeleportEvent te = null;
 				switch (e.getAction()) {
 					default:
 						break;
 					case RIGHT_CLICK_BLOCK:
-						te = new PlayerTeleportEvent(e.getPlayer(), e.getPlayer().getLocation(), e.getClickedBlock().getLocation().add(adjust), TeleportCause.PLUGIN);
+						e.getPlayer().teleport(e.getClickedBlock().getLocation().add(adjust), TeleportCause.PLUGIN);
 					case RIGHT_CLICK_AIR:
-						te = new PlayerTeleportEvent(e.getPlayer(), e.getPlayer().getLocation(), e.getClickedBlock().getLocation(), TeleportCause.PLUGIN);
-				}
-				if (te != null) {
-					plugin.getServer().getPluginManager().callEvent(te);
+						e.getPlayer().teleport(e.getPlayer().getEyeLocation().add(adjust), TeleportCause.PLUGIN);
 				}
 			}
 		}
