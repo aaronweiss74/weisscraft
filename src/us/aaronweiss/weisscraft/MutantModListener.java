@@ -18,7 +18,6 @@ import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
 /**
  * WeissCraft Listener to cause mutations when smelting diamonds.
@@ -131,16 +130,24 @@ public class MutantModListener implements Listener {
 		Collection<PotionEffect> effects = e.getPlayer().getActivePotionEffects();
 		for (PotionEffect pe : effects) {
 			if (pe.getType().equals(PotionEffectType.SLOW) && pe.getAmplifier() >= 3) {
-				Vector vec = e.getPlayer().getVelocity();
+				float pitch = e.getPlayer().getLocation().getPitch();
+				float yaw = e.getPlayer().getLocation().getYaw();
 				switch (e.getAction()) {
 					default:
 						break;
 					case RIGHT_CLICK_BLOCK:
-						e.getPlayer().teleport(e.getClickedBlock().getLocation(), TeleportCause.PLUGIN);
-						e.getPlayer().setVelocity(vec);
+						if (e.getPlayer().getItemInHand().equals(Material.AIR)) {
+							Location to = e.getClickedBlock().getLocation();
+							to.setPitch(pitch);
+							to.setYaw(yaw);
+							e.getPlayer().teleport(to, TeleportCause.PLUGIN);
+						}
+						break;
 					case RIGHT_CLICK_AIR:
-						e.getPlayer().teleport(e.getPlayer().getTargetBlock(null, 200).getLocation(), TeleportCause.PLUGIN);
-						e.getPlayer().setVelocity(vec);
+						Location to = e.getPlayer().getTargetBlock(null, 200).getLocation();
+						to.setPitch(pitch);
+						to.setYaw(yaw);
+						e.getPlayer().teleport(to, TeleportCause.PLUGIN);
 				}
 			}
 		}
