@@ -36,8 +36,9 @@ public class MutantModListener implements Listener {
 		mutations.add(new PotionEffect(PotionEffectType.BLINDNESS, negativeDuration, amplifier));
 		mutations.add(new PotionEffect(PotionEffectType.POISON, negativeDuration, amplifier));
 		mutations.add(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, duration, amplifier));
-		mutations.add(new PotionEffect(PotionEffectType.FAST_DIGGING, duration, amplifier));
+		mutations.add(new PotionEffect(PotionEffectType.REGENERATION, duration, amplifier));
 		mutations.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, duration, amplifier));
+		mutations.add(new PotionEffect(PotionEffectType.JUMP, duration, amplifier));
 		mutations.add(new PotionEffect(PotionEffectType.SPEED, duration, amplifier));
 		for (int i = 0; i < 50; i++) {
 			Collections.shuffle(mutations);

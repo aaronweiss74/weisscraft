@@ -16,21 +16,21 @@ public class WeissCraft extends JavaPlugin {
 	public void onEnable(){
 		if (ModConstants.WORLD_MOD_PREVENTION) {
 			this.getServer().getPluginManager().registerEvents(new WorldModPreventionListener(), this);
-			this.logger.info("[" + this.getDescription().getFullName() + "] World Mod Prevention enabled.");
+			this.logger.info("[" + this.getDescription().getName() + "] World Mod Prevention enabled.");
 		}
 		if (ModConstants.MUTANT_MOD) {
 			MutantModListener mm = new MutantModListener();
 			this.getServer().addRecipe(mm.getMutantRecipe());
 			this.getServer().getPluginManager().registerEvents(mm, this);
-			this.logger.info("[" + this.getDescription().getFullName() + "] Mutant Mod enabled.");
+			this.logger.info("[" + this.getDescription().getName() + "] Mutant Mod enabled.");
 		}
-		this.logger.info("[" + this.getDescription().getFullName() + "] WeissCraft loaded.");
+		this.logger.info("[" + this.getDescription().getName() + "] WeissCraft loaded.");
 	}
 	
 	@Override
 	public void onDisable(){
 		if (ModConstants.WORLD_MOD_PREVENTION) {
-			this.logger.info("[" + this.getDescription().getFullName() + "] World Mod Prevention disabled.");
+			this.logger.info("[" + this.getDescription().getName() + "] World Mod Prevention disabled.");
 		}
 	}
 }
