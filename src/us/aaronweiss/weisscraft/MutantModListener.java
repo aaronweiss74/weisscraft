@@ -129,9 +129,6 @@ public class MutantModListener implements Listener {
 	@EventHandler
 	public void teleportationMutation(PlayerInteractEvent e) {
 		Collection<PotionEffect> effects = e.getPlayer().getActivePotionEffects();
-		if (!e.getPlayer().getItemInHand().equals(Material.AIR)) {
-			return;
-		}
 		for (PotionEffect pe : effects) {
 			if (pe.getType().equals(PotionEffectType.SLOW) && pe.getAmplifier() >= 3) {
 				Vector vec = e.getPlayer().getVelocity();
