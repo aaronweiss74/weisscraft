@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -22,7 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 /**
  * WeissCraft Listener to cause mutations when smelting diamonds.
  * @author Aaron Weiss
- * @version 1.6
+ * @version 1.7
  */
 public class MutantModListener implements Listener {
 	private final ArrayList<PotionEffect> mutations = new ArrayList<PotionEffect>();
@@ -110,6 +111,23 @@ public class MutantModListener implements Listener {
 		if (le.hasPotionEffect(PotionEffectType.JUMP)) {
 			if (e.getCause().equals(DamageCause.FALL)) {
 				e.setCancelled(true);
+			}
+		}
+	}
+	
+	@EventHandler
+	public void fixBurningDamage(EntityCombustEvent e) {
+		LivingEntity le;
+		try {
+			le = (LivingEntity) e.getEntity();
+		} catch (ClassCastException ex) {
+			return;
+		}
+		Collection<PotionEffect> effects = le.getActivePotionEffects();
+		for (PotionEffect pe : effects) {
+			if (pe.getType().equals(PotionEffectType.FIRE_RESISTANCE) && pe.getAmplifier() >= 4) {
+				e.setCancelled(true);
+				return;
 			}
 		}
 	}
