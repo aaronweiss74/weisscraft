@@ -17,7 +17,7 @@ public class WorldModPreventionListener implements Listener {
 	public void stopBlockPlace(BlockPlaceEvent e) {
 		if (e.getPlayer() != null && !e.getPlayer().isOp()) {
 			e.setCancelled(true);
-			e.getPlayer().sendMessage(ChatColor.RED + "You cannot ignite blocks.");
+			e.getPlayer().sendMessage(ChatColor.RED + "You cannot place blocks.");
 		}
 	}
 	
@@ -25,7 +25,7 @@ public class WorldModPreventionListener implements Listener {
 	public void stopBlockBreak(BlockBreakEvent e) {
 		if (e.getPlayer() != null && !e.getPlayer().isOp()) {
 			e.setCancelled(true);
-			e.getPlayer().sendMessage(ChatColor.RED + "You cannot ignite blocks.");
+			e.getPlayer().sendMessage(ChatColor.RED + "You cannot break blocks.");
 		}
 	}
 	

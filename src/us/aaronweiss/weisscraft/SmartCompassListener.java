@@ -13,7 +13,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class SmartCompassListener implements Listener {
 	@EventHandler
 	public void smartCompassJoin(PlayerJoinEvent e) {
-		e.getPlayer().setCompassTarget(e.getPlayer().getBedSpawnLocation());
+		if (e.getPlayer().getBedSpawnLocation() != null) {
+			e.getPlayer().setCompassTarget(e.getPlayer().getBedSpawnLocation());
+		}
 	}
 	
 	@EventHandler
